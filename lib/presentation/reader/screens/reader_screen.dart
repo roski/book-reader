@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_html/flutter_html.dart';
-import '../../../data/datasources/epub_datasource.dart';
 import '../../../domain/entities/book.dart';
 import '../../../domain/entities/reading_settings.dart';
 import '../../../core/theme/app_theme.dart';
@@ -393,7 +392,7 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
           color: themeColors.text,
           fontWeight: FontWeight.bold,
         ),
-        'a': Style(color: themeColors.text.withOpacity(0.7)),
+        'a': Style(color: themeColors.text.withValues(alpha: 0.7)),
       },
     );
   }

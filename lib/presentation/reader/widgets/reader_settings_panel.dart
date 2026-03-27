@@ -281,15 +281,15 @@ class _ThemeButton extends StatelessWidget {
           text: Colors.black87,
         );
       case ReadingTheme.sepia:
-        return _ThemeButtonColors(
-          background: const Color(0xFFF4ECD8),
-          border: const Color(0xFFD4B896),
-          text: const Color(0xFF3B2F2F),
+        return const _ThemeButtonColors(
+          background: Color(0xFFF4ECD8),
+          border: Color(0xFFD4B896),
+          text: Color(0xFF3B2F2F),
         );
       case ReadingTheme.dark:
-        return _ThemeButtonColors(
-          background: const Color(0xFF1A1A2E),
-          border: const Color(0xFF444466),
+        return const _ThemeButtonColors(
+          background: Color(0xFF1A1A2E),
+          border: Color(0xFF444466),
           text: Colors.white,
         );
     }

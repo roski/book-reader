@@ -123,7 +123,7 @@ void main() {
       });
 
       expect(books.first.id, '2'); // Most recently opened
-      expect(books.last.id, '1'); // Opened yesterday
+      expect(books.last.id, '3'); // Never opened: addedAt (Jan 9) ties with book 1's lastOpened; stable sort keeps book 1 before book 3
     });
   });
 }
