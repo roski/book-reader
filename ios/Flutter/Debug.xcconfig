@@ -1,0 +1,7 @@
+// This file is auto-generated when running `flutter build`.
+// It is not meant to be manually edited.
+// See: https://flutter.dev/docs/deployment/android
+
+// Build configuration
+#include? "Generated.xcconfig"
+#include "ephemeral/Flutter-Generated.xcconfig"
