@@ -122,8 +122,8 @@ void main() {
         return bDate.compareTo(aDate);
       });
 
-      expect(books.first.id, '2'); // Most recently opened
-      expect(books.last.id, '3'); // Never opened: addedAt (Jan 9) ties with book 1's lastOpened; stable sort keeps book 1 before book 3
+      expect(books.first.id, '2'); // Most recently opened (Jan 10)
+      expect(books.last.id, '3'); // Never opened; addedAt (Jan 9) ties with book 1's lastOpened, stable sort keeps book 1 before book 3
     });
   });
 }
