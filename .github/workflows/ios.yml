@@ -1,0 +1,88 @@
+name: iOS Build
+
+on:
+  push:
+    branches: [ main, develop, 'copilot/**' ]
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: read
+
+jobs:
+  build-ios:
+    name: Build iOS (unsigned)
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.29.2'
+          channel: 'stable'
+          cache: true
+
+      - name: Get Flutter dependencies
+        run: flutter pub get
+
+      - name: Verify Flutter installation
+        run: flutter doctor -v
+
+      - name: Install CocoaPods dependencies
+        run: |
+          cd ios
+          pod install --repo-update
+        continue-on-error: true
+
+      - name: Build iOS (no signing)
+        run: flutter build ios --release --no-codesign
+
+      - name: Create IPA (unsigned)
+        run: |
+          cd build/ios/iphoneos
+          mkdir -p Payload
+          cp -r Runner.app Payload/
+          zip -r BookReader-unsigned.ipa Payload
+        continue-on-error: true
+
+      - name: Upload iOS build
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-unsigned-ipa
+          path: build/ios/iphoneos/BookReader-unsigned.ipa
+          retention-days: 30
+        continue-on-error: true
+
+      - name: Upload iOS Runner.app
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-runner-app
+          path: build/ios/iphoneos/Runner.app
+          retention-days: 30
+        continue-on-error: true
+
+# ============================================================
+# iOS Signing Instructions (for production deployment)
+# ============================================================
+#
+# To sign the iOS app for TestFlight or App Store distribution:
+#
+# Required GitHub Secrets:
+#   - APPLE_CERTIFICATE_BASE64: Base64-encoded .p12 certificate
+#   - APPLE_CERTIFICATE_PASSWORD: Password for the .p12 file
+#   - APPLE_PROVISIONING_PROFILE_BASE64: Base64-encoded provisioning profile
+#   - APPLE_TEAM_ID: Your Apple Developer Team ID
+#
+# Steps to get secrets:
+# 1. Export your distribution certificate as .p12 from Keychain Access
+# 2. Base64-encode it: base64 -i certificate.p12 | pbcopy
+# 3. Download your provisioning profile from developer.apple.com
+# 4. Base64-encode it: base64 -i profile.mobileprovision | pbcopy
+#
+# For TestFlight upload, also add:
+#   - APPLE_ID: Your Apple ID email
+#   - APPLE_APP_SPECIFIC_PASSWORD: App-specific password from appleid.apple.com
+#   - APPLE_APP_ID: Your app's Apple App ID (from App Store Connect)

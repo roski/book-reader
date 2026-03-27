@@ -1,0 +1,4 @@
+// This file is auto-generated when running `flutter build`.
+// It is not meant to be manually edited.
+#include? "Generated.xcconfig"
+#include "ephemeral/Flutter-Generated.xcconfig"
