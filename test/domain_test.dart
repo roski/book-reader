@@ -84,15 +84,15 @@ void main() {
 
   group('Book sorting tests', () {
     test('Books should be sortable by lastOpened date', () {
-      final now = DateTime.now();
+      final baseDate = DateTime(2024, 1, 10);
       final books = [
         Book(
           id: '1',
           title: 'Book A',
           author: 'Author A',
           filePath: '/a.epub',
-          addedAt: now.subtract(const Duration(days: 3)),
-          lastOpened: now.subtract(const Duration(days: 1)),
+          addedAt: baseDate.subtract(const Duration(days: 3)),
+          lastOpened: baseDate.subtract(const Duration(days: 1)),
           format: 'epub',
         ),
         Book(
@@ -100,8 +100,8 @@ void main() {
           title: 'Book B',
           author: 'Author B',
           filePath: '/b.epub',
-          addedAt: now.subtract(const Duration(days: 2)),
-          lastOpened: now,
+          addedAt: baseDate.subtract(const Duration(days: 2)),
+          lastOpened: baseDate,
           format: 'epub',
         ),
         Book(
@@ -109,7 +109,7 @@ void main() {
           title: 'Book C',
           author: 'Author C',
           filePath: '/c.epub',
-          addedAt: now.subtract(const Duration(days: 1)),
+          addedAt: baseDate.subtract(const Duration(days: 1)),
           format: 'epub',
           // no lastOpened
         ),

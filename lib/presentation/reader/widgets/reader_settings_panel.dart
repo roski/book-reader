@@ -255,31 +255,43 @@ class _ThemeButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
-          color: colors.$1,
+          color: colors.background,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
             color: isSelected
                 ? Theme.of(context).colorScheme.primary
-                : colors.$2,
+                : colors.border,
             width: isSelected ? 2 : 1,
           ),
         ),
         child: Text(
           _getLabel(),
-          style: TextStyle(color: colors.$3, fontWeight: FontWeight.w500),
+          style: TextStyle(color: colors.text, fontWeight: FontWeight.w500),
         ),
       ),
     );
   }
 
-  (Color, Color, Color) _getThemeColors() {
+  _ThemeButtonColors _getThemeColors() {
     switch (theme) {
       case ReadingTheme.light:
-        return (Colors.white, Colors.grey.shade300, Colors.black87);
+        return _ThemeButtonColors(
+          background: Colors.white,
+          border: Colors.grey.shade300,
+          text: Colors.black87,
+        );
       case ReadingTheme.sepia:
-        return (const Color(0xFFF4ECD8), const Color(0xFFD4B896), const Color(0xFF3B2F2F));
+        return _ThemeButtonColors(
+          background: const Color(0xFFF4ECD8),
+          border: const Color(0xFFD4B896),
+          text: const Color(0xFF3B2F2F),
+        );
       case ReadingTheme.dark:
-        return (const Color(0xFF1A1A2E), const Color(0xFF444466), Colors.white);
+        return _ThemeButtonColors(
+          background: const Color(0xFF1A1A2E),
+          border: const Color(0xFF444466),
+          text: Colors.white,
+        );
     }
   }
 
@@ -293,6 +305,18 @@ class _ThemeButton extends StatelessWidget {
         return 'Dark';
     }
   }
+}
+
+class _ThemeButtonColors {
+  final Color background;
+  final Color border;
+  final Color text;
+
+  const _ThemeButtonColors({
+    required this.background,
+    required this.border,
+    required this.text,
+  });
 }
 
 class _AlignmentButton extends StatelessWidget {

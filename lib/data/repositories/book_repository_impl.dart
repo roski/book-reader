@@ -1,11 +1,10 @@
 import 'package:hive_flutter/hive_flutter.dart';
+import '../../core/constants/app_constants.dart';
 import '../../domain/entities/book.dart';
 import '../../domain/repositories/book_repository.dart';
 
 class BookRepositoryImpl implements BookRepository {
-  static const String _boxName = 'books';
-
-  Box<Book> get _box => Hive.box<Book>(_boxName);
+  Box<Book> get _box => Hive.box<Book>(AppConstants.booksBox);
 
   @override
   Future<List<Book>> getAllBooks() async {

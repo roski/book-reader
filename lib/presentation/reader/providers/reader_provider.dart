@@ -80,12 +80,6 @@ class TtsNotifier extends Notifier<TtsState> {
     }
   }
 
-  Future<void> resume() async {
-    // flutter_tts doesn't have a direct resume; re-speak from paused position
-    // We use platform-level continue if available
-    state = TtsState.playing;
-  }
-
   Future<void> stop() async {
     await _flutterTts.stop();
     state = TtsState.stopped;
